@@ -43,3 +43,29 @@ func NewCustomer(name string) (Customer, error) {
 		transactions: make([]*value_object.Transaction, 0),
 	}, nil
 }
+
+// GetID returns customer root user id
+func (c *Customer) GetID() uuid.UUID {
+	return c.user.ID
+}
+
+// SetID sets the root user id
+func (c *Customer) SetID(id uuid.UUID) {
+	if c.user == nil {
+		c.user = &entity.User{}
+	}
+	c.user.ID = id
+}
+
+// SetName sets the name of the root user
+func (c *Customer) SetName(name string) {
+	if c.user == nil {
+		c.user = &entity.User{}
+	}
+	c.user.Name = name
+}
+
+// GetName returns the root user name
+func (c *Customer) GetName() string {
+	return c.user.Name
+}
