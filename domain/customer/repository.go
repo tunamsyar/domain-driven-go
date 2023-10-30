@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// Error messages
 var (
 	ErrCustomerNotFound = errors.New("customer not found")
 

@@ -17,6 +17,7 @@ type Product struct {
 	quantity int
 }
 
+// NewProduct creates Product aggregate
 func NewProduct(name string, description string, price float64) (Product, error) {
 	if name == "" || description == "" {
 		return Product{}, ErrMissingValues

@@ -52,6 +52,7 @@ func WithMemoryCustomerRepository() OrderConfiguration {
 	return WithCustomerRepository(cr)
 }
 
+// WithMemoryProductRepository applies a memory Product Repository to the OrderService
 func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
 	return func(os *OrderService) error {
 		pr := prodmemory.New()
@@ -69,6 +70,7 @@ func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguratio
 	}
 }
 
+// CreateOrder is called by the OrderService to create Order
 func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID) (float64, error) {
 	// Get Customer
 	c, err := o.customers.Get(customerID)
@@ -79,6 +81,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	var products []aggregate.Product
 	var price float64
 
+	// Get products and sum the price
 	for _, id := range productIDs {
 		p, err := o.products.GetByID(id)
 

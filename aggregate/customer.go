@@ -12,6 +12,7 @@ var (
 	ErrInvalidUser = errors.New("invalid user")
 )
 
+// Customer aggregate is a combination of entities and value objects
 type Customer struct {
 	// user is Root Entity
 	user *entity.User
