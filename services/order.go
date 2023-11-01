@@ -1,9 +1,11 @@
 package services
 
 import (
+	"context"
 	"domain-driven-go/aggregate"
 	"domain-driven-go/domain/customer"
 	memory "domain-driven-go/domain/customer/memory"
+	"domain-driven-go/domain/customer/mongo"
 	"domain-driven-go/domain/product"
 	prodmemory "domain-driven-go/domain/product/memory"
 	"log"
@@ -50,6 +52,17 @@ func WithMemoryCustomerRepository() OrderConfiguration {
 
 	cr := memory.New()
 	return WithCustomerRepository(cr)
+}
+
+func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
+	return func(os *OrderService) error {
+		cr, err := mongo.New(context.Background(), connectionString)
+		if err != nil {
+			return err
+		}
+		os.customers = cr
+		return nil
+	}
 }
 
 // WithMemoryProductRepository applies a memory Product Repository to the OrderService
